@@ -603,9 +603,7 @@ li {
   transition: transform 0.3s ease-in-out;
 }
 
-li:hover {
-  transform: scale(1.05);
-}
+
 
 /* Зробимо зображення однакового розміру та збережемо пропорції */
 img {
