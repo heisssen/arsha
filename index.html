@@ -890,56 +890,79 @@
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 
-  <script>
-      $ = jQuery;
-      $(document).ready(function () {
+<script>
+  $ = jQuery;
+  $(document).ready(function () {
 
-        $h_slider_options = {
-          gallery: true,
-          item: 1,
-          loop: true,
-          slideMargin: 0,
-          thumbItem: 6,
-          galleryMargin: 10,
-          thumbMargin: 10,
-        };
+    let isSwiping = false; // Прапор для визначення свайпу
+    let touchStartX = 0;   // Початкова координата свайпу
 
-        $v_slider_options = {
-          gallery: true,
-          item: 1,
-          loop: true,
-          slideMargin: 0,
-          thumbItem: 6,
-          galleryMargin: 10,
-          thumbMargin: 10,
-          vertical: true
-        };
+    // Налаштування слайдера
+    $h_slider_options = {
+      gallery: true,
+      item: 1,
+      loop: true,
+      slideMargin: 0,
+      thumbItem: 6,
+      galleryMargin: 10,
+      thumbMargin: 10,
+      onBeforeSlide: function () {
+        isSwiping = true; // Позначаємо, що відбувається свайп
+      }
+    };
 
-        h_slider = $('#lightSlider').lightSlider($h_slider_options);
-        v_slider = $('#lightSliderVertical').lightSlider($v_slider_options);
+    // Ініціалізація слайдера
+    h_slider = $('#lightSlider').lightSlider($h_slider_options);
 
-        $selector = '#lightSlider li:not(".clone") a';
-        $selector += ',#lightSliderVertical li:not(".clone") a';
-        $().fancybox({
-          selector: $selector,
-          backFocus: false,
-          buttons: [
-            'slideShow',
-            'share',
-            'zoom',
-            'fullScreen',
-            'thumbs',
-            'download',
-            'close'
-          ]
-        });
-      });
+    // Ініціалізація Fancybox, щоб активувався при кліці
+    $selector = '#lightSlider li:not(".clone") a';
+    $().fancybox({
+      selector: $selector,
+      backFocus: false,
+      buttons: [
+        'slideShow',
+        'share',
+        'zoom',
+        'fullScreen',
+        'thumbs',
+        'download',
+        'close'
+      ],
+      clickContent: false, // Запобігання відкриттю Fancybox при кліку на контент
+      dblclickContent: false
+    });
 
-      $(window).resize(function () {
-        slider.destroy();
-        h_slider = $('#ocassions-slider').lightSlider(h_slider_options);
-      });
-  </script>
+    // Відслідковуємо початок свайпу (тач)
+    $('#lightSlider').on('touchstart', function (e) {
+      touchStartX = e.originalEvent.touches[0].clientX;
+    });
+
+    // Відслідковуємо завершення свайпу (тач)
+    $('#lightSlider').on('touchend', function (e) {
+      let touchEndX = e.originalEvent.changedTouches[0].clientX;
+      let swipeDistance = Math.abs(touchStartX - touchEndX);
+
+      // Якщо свайп був коротким (наприклад, < 10px), це клік, не свайп
+      if (swipeDistance < 10) {
+        isSwiping = false; // Вважаємо це кліком
+      }
+    });
+
+    // Обробка кліку на зображення
+    $('#lightSlider li a').on('click', function (event) {
+      if (isSwiping) {
+        event.preventDefault(); // Якщо це був свайп, блокуємо відкриття Fancybox
+        isSwiping = false;
+      }
+    });
+  });
+
+  // Повторна ініціалізація слайдера при зміні розміру вікна
+  $(window).resize(function () {
+    h_slider.destroy();
+    h_slider = $('#lightSlider').lightSlider($h_slider_options);
+  });
+</script>
 
 </body>
 
