@@ -139,37 +139,53 @@
       </div>
     </section><!-- End Cliens Section -->
 
-      <section class="carousel-section">
-        <div class="container-fluid">
-          <div class="row justify-content-center">
-            <!-- Full-width column (12 columns) -->
-            <div class="col-12">
-              <!-- Carousel container -->
-              <div class="carousel-container d-flex justify-content-between align-items-center">
-                <!-- Left Navigation Button -->
-                <button class="nav-button left" onclick="scrollCarousel(-1)">‹</button>
-      
-                <!-- Image Container with Fancybox enabled gallery -->
-                <div class="carousel w-100 text-center">
-                  <a id="carousel-link" data-fancybox="gallery" href="1.jpg">
-                    <img id="carousel-image" src="1.jpg" alt="Carousel Image 1">
-                  </a>
-                </div>
-      
-                <!-- Right Navigation Button -->
-                <button class="nav-button right" onclick="scrollCarousel(1)">›</button>
-              </div>
-      
-              <!-- Additional images for Fancybox navigation (part of the same gallery) -->
-              <div class="d-none">
-                <a data-fancybox="gallery" href="2.webp"></a>
-                <a data-fancybox="gallery" href="3.jpg"></a>
-                <a data-fancybox="gallery" href="4.webp"></a>
-              </div>
+  <section class="carousel-section">
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <!-- Full-width column (12 columns) -->
+        <div class="col-12">
+          <!-- Carousel container -->
+          <div class="carousel-container d-flex justify-content-between align-items-center">
+            <!-- Left Navigation Button -->
+            <button class="nav-button left" onclick="scrollCarousel(-1)">‹</button>
+  
+            <!-- Image Container with Fancybox enabled gallery -->
+            <div class="carousel w-100 text-center">
+              <a id="carousel-link" data-fancybox="gallery" href="1.jpg">
+                <img id="carousel-image" src="1.jpg" alt="Carousel Image 1">
+              </a>
+            </div>
+  
+            <!-- Right Navigation Button -->
+            <button class="nav-button right" onclick="scrollCarousel(1)">›</button>
+          </div>
+  
+          <!-- Additional images for Fancybox navigation (part of the same gallery) -->
+          <div class="d-none">
+            <a data-fancybox="gallery" href="2.webp"></a>
+            <a data-fancybox="gallery" href="3.jpg"></a>
+            <a data-fancybox="gallery" href="4.webp"></a>
+          </div>
+  
+          <!-- Thumbnails section -->
+          <div class="thumbnails d-flex justify-content-center mt-3">
+            <div class="thumbnail" data-index="0">
+              <img src="1.jpg" alt="Thumbnail 1" class="img-thumbnail">
+            </div>
+            <div class="thumbnail" data-index="1">
+              <img src="2.webp" alt="Thumbnail 2" class="img-thumbnail">
+            </div>
+            <div class="thumbnail" data-index="2">
+              <img src="3.jpg" alt="Thumbnail 3" class="img-thumbnail">
+            </div>
+            <div class="thumbnail" data-index="3">
+              <img src="4.webp" alt="Thumbnail 4" class="img-thumbnail">
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </div>
+  </section>
 
     <!-- ======= About Us Section ======= -->
     <section id="about" class="about">
@@ -896,29 +912,42 @@
         linkElement.href = images[currentIndex];
         imageElement.style.opacity = 1;
       }, 300); // Match the opacity transition timing
+
+      // Update active thumbnail
+      document.querySelectorAll('.thumbnail img').forEach((thumb, idx) => {
+        thumb.classList.toggle('active', idx === currentIndex);
+      });
     }
 
-    // Initialize Fancybox for zoom functionality with arrows for navigation
+    // Add click event listeners to thumbnails
+    document.querySelectorAll('.thumbnail').forEach(thumb => {
+      thumb.addEventListener('click', function () {
+        const index = parseInt(this.getAttribute('data-index'));
+        scrollCarousel(index - currentIndex);
+      });
+    });
+
+    // Initialize Fancybox
     Fancybox.bind("[data-fancybox='gallery']", {
-      infinite: true, // Enable infinite scrolling
+      infinite: true,
       Toolbar: {
-        display: ['zoom', 'close', 'prev', 'next'], // Show prev/next buttons and zoom functionality
+        display: ['zoom', 'close', 'prev', 'next'],
       },
       Thumbs: {
-        autoStart: false, // Disable thumbnails
+        autoStart: true,
       },
       Carousel: {
-        infinite: true, // Allow infinite scrolling
+        infinite: true,
       },
       Image: {
-        zoom: true, // Enable zoom
-        click: 'toggleZoom', // Click to toggle zoom
-        wheel: 'slide', // Use mouse wheel to slide between images
+        zoom: true,
+        click: 'toggleZoom',
+        wheel: 'slide',
       },
-      arrows: true, // Show prev/next arrows in zoom mode
+      arrows: true,
       touch: {
-        vertical: false, // Prevent vertical swipe from closing Fancybox
-        momentum: true, // Enable smooth swipe transitions
+        vertical: false,
+        momentum: true,
       },
     });
   </script>

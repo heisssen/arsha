@@ -367,74 +367,95 @@ h1, h2, h3, h4, h5, h6 {
 
 /*Carousel section */
 
-                /* Section for full width */
-                .carousel-section {
-                  width: 100%;
-                  background-color: #f6f9fc;
-                  padding: 50px 0;
-                }
-        
-                /* Carousel container */
-                .carousel-container {
-                  background-color: white;
-                  padding: 20px;
-                  border-radius: 10px;
-                  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                }
-        
-                /* Fixed size for the image preview container */
-                .carousel img {
-                  width: 100%;
-                  max-width: 800px;
-                  /* Fixed maximum width */
-                  height: 500px;
-                  /* Fixed height */
-                  object-fit: cover;
-                  /* Ensure image fits within the container */
-                  border-radius: 10px;
-                  transition: opacity 0.6s ease-in-out;
-                }
-        
-                /* Navigation buttons */
-                .nav-button {
-                  background-color: transparent;
-                  color: #3A7BD5;
-                  padding: 10px 20px;
-                  cursor: pointer;
-                  border: 2px solid #3A7BD5;
-                  border-radius: 5px;
-                  font-size: 28px;
-                  opacity: 0.8;
-                  transition: background-color 0.3s, opacity 0.3s, color 0.3s;
-                }
-        
-                .nav-button:hover {
-                  background-color: #3A7BD5;
-                  color: white;
-                  opacity: 1;
-                }
-        
-                .nav-button.left {
-                  margin-right: 20px;
-                }
-        
-                .nav-button.right {
-                  margin-left: 20px;
-                }
-        
-                /* Mobile optimization */
-                @media (max-width: 576px) {
-                  .carousel img {
-                    height: 250px;
-                    /* Smaller height for mobile devices */
-                  }
-        
-                  .nav-button {
-                    font-size: 24px;
-                    padding: 10px 15px;
-                    /* Adjusted padding for better touch interaction */
-                  }
-                }
+/* Section for full width */
+.carousel-section {
+  width: 100%;
+  background-color: #f6f9fc;
+  padding: 50px 0;
+}
+
+/* Carousel container */
+.carousel-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Fixed size for the image preview container */
+.carousel img {
+  width: 100%;
+  max-width: 800px;
+  height: 500px;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: opacity 0.6s ease-in-out;
+}
+
+/* Navigation buttons */
+.nav-button {
+  background-color: transparent;
+  color: #3A7BD5;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: 2px solid #3A7BD5;
+  border-radius: 5px;
+  font-size: 28px;
+  opacity: 0.8;
+  transition: background-color 0.3s, opacity 0.3s, color 0.3s;
+}
+
+.nav-button:hover {
+  background-color: #3A7BD5;
+  color: white;
+  opacity: 1;
+}
+
+.nav-button.left {
+  margin-right: 20px;
+}
+
+.nav-button.right {
+  margin-left: 20px;
+}
+
+/* Thumbnail styles */
+.thumbnails {
+  display: flex;
+  gap: 10px;
+}
+
+.thumbnail img {
+  width: 100px;
+  height: 75px;
+  object-fit: cover;
+  cursor: pointer;
+  opacity: 0.6;
+  border-radius: 5px;
+  transition: opacity 0.3s ease;
+}
+
+.thumbnail img.active {
+  opacity: 1;
+  border: 2px solid #3A7BD5;
+}
+
+/* Mobile optimization */
+@media (max-width: 576px) {
+  .carousel img {
+    height: 250px;
+  }
+
+  .nav-button {
+    font-size: 24px;
+    padding: 10px 15px;
+  }
+
+  .thumbnail img {
+    width: 70px;
+    height: 50px;
+  }
+}
 /*--------------------------------------------------------------
 # Hero Section
 --------------------------------------------------------------*/
